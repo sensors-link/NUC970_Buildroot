@@ -1,15 +1,7 @@
 config BR2_PACKAGE_LRANDOM
 	bool "lrandom"
-	depends on BR2_PACKAGE_HAS_LUAINTERPRETER
-	depends on BR2_PACKAGE_LUA_5_1 || BR2_PACKAGE_LUAJIT || BR2_PACKAGE_LUA_5_2 || BR2_PACKAGE_LUA_5_3
 	help
 	  A library for generating random numbers
 	  based on the Mersenne Twister
 
 	  http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/#lrandom
-
-comment "lrandom needs a Lua 5.1-5.3 interpreter"
-	depends on !BR2_PACKAGE_LUA_5_1
-	depends on !BR2_PACKAGE_LUA_5_2
-	depends on !BR2_PACKAGE_LUA_5_3
-	depends on !BR2_PACKAGE_LUAJIT
