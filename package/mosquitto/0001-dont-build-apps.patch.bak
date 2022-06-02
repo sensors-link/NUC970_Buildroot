@@ -1,0 +1,16 @@
+Don't build apps subdir
+
+Signed-off-by: Raymond Wu <wusixin@gmail.com>
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ include config.mk
+
+-DIRS=lib apps client plugins src
++DIRS=lib client plugins src
+ DOCDIRS=man
+ DISTDIRS=man
+ DISTFILES= \

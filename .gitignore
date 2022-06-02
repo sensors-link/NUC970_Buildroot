@@ -1,0 +1,5 @@
+.vscode/
+output/
+dl/
+*.old
+*.tmp

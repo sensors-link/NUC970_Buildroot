@@ -5,7 +5,7 @@
 ################################################################################
 
 LIBEV_VERSION = 4.22
-LIBEV_SITE = http://dist.schmorp.de/libev
+LIBEV_SITE = https://src.fedoraproject.org/repo/pkgs/libev/libev-4.22.tar.gz/bf0007e37240103d3c2be80ca9bee3f9
 LIBEV_INSTALL_STAGING = YES
 LIBEV_LICENSE = BSD-2c or GPLv2+
 LIBEV_LICENSE_FILES = LICENSE

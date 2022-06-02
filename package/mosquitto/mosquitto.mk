@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MOSQUITTO_VERSION = 1.4.10
+MOSQUITTO_VERSION = 2.0.10
 MOSQUITTO_SITE = http://mosquitto.org/files/source
 MOSQUITTO_LICENSE = EPLv1.0 or EDLv1.0
 MOSQUITTO_LICENSE_FILES = LICENSE.txt epl-v10 edl-v10
@@ -15,13 +15,20 @@ MOSQUITTO_MAKE_OPTS = \
 	STRIP=true \
 	prefix=/usr \
 	WITH_WRAP=no \
-	WITH_DOCS=no
+	WITH_DOCS=no \
+	WITH_CJSON=no \
+	WITH_BRIDGE=no \
+	WITH_THREADING=no \
+	WITH_SRV=no \
+	WITH_WEBSOCKETS=no \
+	WITH_MEMORY_TRACKING=no \
+	WITH_EC=no
 
-ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
-MOSQUITTO_MAKE_OPTS += WITH_THREADING=yes
-else
-MOSQUITTO_MAKE_OPTS += WITH_THREADING=no
-endif
+#ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
+#MOSQUITTO_MAKE_OPTS += WITH_THREADING=yes
+#else
+#MOSQUITTO_MAKE_OPTS += WITH_THREADING=no
+#endif
 
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 MOSQUITTO_DEPENDENCIES += openssl
@@ -30,12 +37,12 @@ else
 MOSQUITTO_MAKE_OPTS += WITH_TLS=no
 endif
 
-ifeq ($(BR2_PACKAGE_C_ARES),y)
-MOSQUITTO_DEPENDENCIES += c-ares
-MOSQUITTO_MAKE_OPTS += WITH_SRV=yes
-else
-MOSQUITTO_MAKE_OPTS += WITH_SRV=no
-endif
+# ifeq ($(BR2_PACKAGE_C_ARES),y)
+# MOSQUITTO_DEPENDENCIES += c-ares
+# MOSQUITTO_MAKE_OPTS += WITH_SRV=yes
+# else
+# MOSQUITTO_MAKE_OPTS += WITH_SRV=no
+# endif
 
 ifeq ($(BR2_PACKAGE_UTIL_LINUX_LIBUUID),y)
 MOSQUITTO_DEPENDENCIES += util-linux
@@ -44,12 +51,12 @@ else
 MOSQUITTO_MAKE_OPTS += WITH_UUID=no
 endif
 
-ifeq ($(BR2_PACKAGE_LIBWEBSOCKETS),y)
-MOSQUITTO_DEPENDENCIES += libwebsockets
-MOSQUITTO_MAKE_OPTS += WITH_WEBSOCKETS=yes
-else
-MOSQUITTO_MAKE_OPTS += WITH_WEBSOCKETS=no
-endif
+# ifeq ($(BR2_PACKAGE_LIBWEBSOCKETS),y)
+# MOSQUITTO_DEPENDENCIES += libwebsockets
+# MOSQUITTO_MAKE_OPTS += WITH_WEBSOCKETS=yes
+# else
+# MOSQUITTO_MAKE_OPTS += WITH_WEBSOCKETS=no
+# endif
 
 # C++ support is only used to create a wrapper library
 ifneq ($(BR2_INSTALL_LIBSTDCPP),y)

@@ -4,16 +4,19 @@
 #
 ################################################################################
 
-LUAROCKS_VERSION = 2.4.1
+LUAROCKS_VERSION = 3.9.0
 LUAROCKS_SITE = http://luarocks.org/releases
 LUAROCKS_LICENSE = MIT
 LUAROCKS_LICENSE_FILES = COPYING
 
 HOST_LUAROCKS_DEPENDENCIES = host-luainterpreter
 
-LUAROCKS_CONFIG_DIR = $(HOST_DIR)/usr/etc/luarocks
-LUAROCKS_CONFIG_FILE = $(LUAROCKS_CONFIG_DIR)/config-$(LUAINTERPRETER_ABIVER).lua
+LUAROCKS_CONFIG_DIR = $(HOST_DIR)/usr/etc
+LUAROCKS_CONFIG_FILE = $(LUAROCKS_CONFIG_DIR)/luarocks/config-$(LUAINTERPRETER_ABIVER).lua
 LUAROCKS_CFLAGS = $(TARGET_CFLAGS) -fPIC
+ifeq ($(BR2_PACKAGE_LUA_5_4),y)
+LUAROCKS_CFLAGS += -DLUA_COMPAT_5_3
+endif
 ifeq ($(BR2_PACKAGE_LUA_5_3),y)
 LUAROCKS_CFLAGS += -DLUA_COMPAT_5_2
 endif
@@ -49,6 +52,7 @@ define HOST_LUAROCKS_INSTALL_CMDS
 	echo "rocks_trees = { [[$(TARGET_DIR)/usr]] }"          >> $(LUAROCKS_CONFIG_FILE)
 	echo "wrap_bin_scripts = false"                         >> $(LUAROCKS_CONFIG_FILE)
 	echo "deps_mode = [[none]]"                             >> $(LUAROCKS_CONFIG_FILE)
+	rm -fr $(LUAROCKS_CONFIG_DIR)/luarocks/luarocks
 endef
 
 $(eval $(host-generic-package))

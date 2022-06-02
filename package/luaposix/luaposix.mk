@@ -4,11 +4,11 @@
 #
 ################################################################################
 
-LUAPOSIX_VERSION = 33.4.0
-LUAPOSIX_SITE = $(call github,luaposix,luaposix,release-v$(LUAPOSIX_VERSION))
+LUAPOSIX_VERSION = 35.1-1
+LUASOCKET_SUBDIR =
 LUAPOSIX_LICENSE = MIT
-LUAPOSIX_LICENSE_FILES = COPYING
+LUAPOSIX_LICENSE_FILES = LICENSE
 LUAPOSIX_DEPENDENCIES = luainterpreter host-lua
 LUAPOSIX_CONF_OPTS = --libdir="/usr/lib/lua/$(LUAINTERPRETER_ABIVER)" --datarootdir="/usr/share/lua/$(LUAINTERPRETER_ABIVER)"
 
-$(eval $(autotools-package))
+$(eval $(luarocks-package))

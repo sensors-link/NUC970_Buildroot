@@ -1,0 +1,12 @@
+config BR2_PACKAGE_LUA_MOSQUITTO
+	bool "lua-mosquitto"
+	depends on BR2_PACKAGE_HAS_LUAINTERPRETER 
+	depends on BR2_PACKAGE_MOSQUITTO
+	select BR2_PACKAGE_MOSQUITTO
+	help
+	  Lua bindings to the libmosquitto MQTT client library.
+	  The parameters to all functions are as per libmosquitto's api
+	  only with sensible defaults for optional values, and return
+	  values directly rather than via pointers.
+
+	  https://github.com/flukso/lua-mosquitto

@@ -4,6 +4,9 @@
 #
 ################################################################################
 
+ifeq ($(BR2_PACKAGE_LUA_5_4),y)
+LUA_VERSION = 5.4.4
+else
 ifeq ($(BR2_PACKAGE_LUA_5_3),y)
 LUA_VERSION = 5.3.3
 else
@@ -11,6 +14,7 @@ ifeq ($(BR2_PACKAGE_LUA_5_2),y)
 LUA_VERSION = 5.2.4
 else
 LUA_VERSION = 5.1.5
+endif
 endif
 endif
 LUA_SITE = http://www.lua.org/ftp
@@ -32,6 +36,10 @@ endif
 
 ifeq ($(BR2_PACKAGE_LUA_5_3),y)
 LUA_CFLAGS += -DLUA_COMPAT_5_2
+endif
+
+ifeq ($(BR2_PACKAGE_LUA_5_4),y)
+LUA_CFLAGS += -DLUA_COMPAT_5_3
 endif
 
 ifeq ($(BR2_STATIC_LIBS),y)
