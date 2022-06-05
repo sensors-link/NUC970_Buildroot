@@ -1,0 +1,23 @@
+name: 'Build Toolchain'
+on:
+  workflow_run:
+    workflows: ["Build"]
+      types: [requested]
+
+jobs:
+  build-toolchain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: configure
+        run: |
+          make slink_toolchain_defconfig
+      - name: make
+        run: make
+      - name: Archive toochain artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: toolchain
+          path: |
+            output/host/usr
