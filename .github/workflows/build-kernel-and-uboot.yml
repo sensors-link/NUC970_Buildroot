@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Patch Toolchain with kernel-headers
         run: |          
-          wget -q -P dl https://mirrors.edge.kernel.org/pub/linux/kernel/v3.x/linux-3.10.108.tar.gz
+          wget -q -P dl https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.10.108.tar.gz
           tar Jxvf dl/linux-3.10.108.tar.gz
           cd linux-3.10.108; make headers_install; cd ..
           sudo ln -s `pwd`/linux-3.10.108/usr/include/linux /usr/local/arm_linux_4.8/usr/include/linux
