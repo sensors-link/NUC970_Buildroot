@@ -1,3 +1,6 @@
+2022.6.6 update version of lua packages
+	add github actions to build kernel & uboot
+	
 2022.6.1 update version of lua packages
 	merge all lua related packages from upstream latest, to enable lua 5.4 and new version of modules
 	add lua-mosquitto 0.4.1 module
