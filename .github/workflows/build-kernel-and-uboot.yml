@@ -1,5 +1,8 @@
 name: 'Build Kernel & UBoot'
 on:
+  push:
+    paths:
+      - 'CHANGES'
   workflow_dispatch:
 
 jobs:
