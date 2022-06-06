@@ -10,14 +10,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Download Toolchain
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: build-toolchain.yml
+          workflow_conclusion: success
           name: toolchain
+          path: /usr/local/arm_linux_4.8
       - name: Display toolchain
         run: |
-          tree .
-          mkdir -p /usr/local/arm_linux_4.8
-          cp -r output/host/usr/* /usr/local/arm_linux_4.8/
+          pwd
+          tree /usr/local/arm_linux_4.8
       - name: configure
         run: |
           make slink_uitd_defconfig
