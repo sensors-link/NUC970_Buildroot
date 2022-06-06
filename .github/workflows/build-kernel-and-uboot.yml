@@ -2,7 +2,7 @@ name: 'Build Kernel & UBoot'
 on:
   push:
     paths:
-      - 'CHANGES'
+      - '.github/workflows/build-kernel-and-uboot.yml'
   workflow_dispatch:
 
 jobs:
