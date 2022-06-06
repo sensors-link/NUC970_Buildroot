@@ -26,15 +26,14 @@ jobs:
           sudo ln -s `pwd`/linux-3.10.108/usr/include/linux /usr/local/arm_linux_4.8/usr/include/linux
       - name: Configure buildroot with defconfig
         run: |
-          make slink_uitd_defconfig
-      - name: Make kernel & uboot
+          make slink_rootfs_defconfig
+      - name: Make rootfs
         run: |
-          make linux
-          make uboot
+          make
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: bsp
+          name: rootfs
           path: |
-            output/images/u-boot*
-            output/images/uImage
+            !output/images/u-boot*
+            !output/images/uImage
