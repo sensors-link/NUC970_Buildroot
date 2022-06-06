@@ -11,17 +11,23 @@ jobs:
     steps:
       - name: Prepare Toolchains
         run: |
-          wget https://github.com/sensors-link/NUC970_Toolchain/releases/download/v1.0.0/arm_linux_4.8.tar.gz
-          wget https://github.com/sensors-link/NUC970_Toolchain/releases/download/v1.0.0/toolchain_install.sh
+          wget -q https://github.com/sensors-link/NUC970_Toolchain/releases/download/v1.0.0/arm_linux_4.8.tar.gz
+          wget -q https://github.com/sensors-link/NUC970_Toolchain/releases/download/v1.0.0/toolchain_install.sh
           sudo bash toolchain_install.sh
           export PATH=/usr/local/arm_linux_4.8/bin:$PATH
           ls /usr/local/arm_linux_4.8
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: configure
+      - name: Patch Toolchain with kernel-headers
+        run: |          
+          wget -q -P dl https://mirrors.edge.kernel.org/pub/linux/kernel/v3.x/linux-3.10.108.tar.gz
+          tar Jxvf dl/linux-3.10.108.tar.gz
+          cd linux-3.10.108; make headers_install; cd ..
+          sudo ln -s `pwd`/linux-3.10.108/usr/include/linux /usr/local/arm_linux_4.8/usr/include/linux
+      - name: Configure buildroot with defconfig
         run: |
           make slink_uitd_defconfig
-      - name: make kernel & uboot
+      - name: Make kernel & uboot
         run: |
           make linux
           make uboot
