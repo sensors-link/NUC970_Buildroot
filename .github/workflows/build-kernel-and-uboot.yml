@@ -1,6 +1,5 @@
 name: 'Build Kernel & UBoot'
 on:
-  push:
   workflow_dispatch:
 
 jobs:
@@ -15,11 +14,12 @@ jobs:
           workflow: build-toolchain.yml
           workflow_conclusion: success
           name: toolchain
+          path: output/host/usr
       - name: Display toolchain
         run: |
-          pwd
-          tree .
-          false
+          sudo mkdir -p /usr/local/arm_linux_4.8
+          sudo cp -r output/host/usr/* /usr/local/arm_linux_4.8/
+          sudo chown -R root:root /usr/local/arm_linux_4.8/
       - name: configure
         run: |
           make slink_uitd_defconfig
