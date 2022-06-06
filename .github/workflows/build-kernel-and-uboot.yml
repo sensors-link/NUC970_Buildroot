@@ -15,11 +15,11 @@ jobs:
           workflow: build-toolchain.yml
           workflow_conclusion: success
           name: toolchain
-          path: /usr/local/arm_linux_4.8
       - name: Display toolchain
         run: |
           pwd
-          tree /usr/local/arm_linux_4.8
+          tree .
+          false
       - name: configure
         run: |
           make slink_uitd_defconfig
