@@ -13,10 +13,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: toolchain
-          path: /usr/local/arm_linux_4.8/
       - name: Display toolchain
         run: |
-          tree /usr/local/arm_linux_4.8/
+          tree .
+          mkdir -p /usr/local/arm_linux_4.8
+          cp -r output/host/usr/* /usr/local/arm_linux_4.8/
       - name: configure
         run: |
           make slink_uitd_defconfig
