@@ -1,0 +1,33 @@
+name: 'Build Kernel & UBoot'
+on:
+  workflow_dispatch:
+
+jobs:
+  build-kernel-and-uboot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Download Toolchain
+      - uses: actions/download-artifact@v3
+        with:
+          name: toolchain
+          path: /usr/local/arm_linux_4.8/
+      - name: Display toolchain
+        run: |
+          tree /usr/local/arm_linux_4.8/
+      - name: configure
+        run: |
+          make slink_uitd_defconfig
+          export PATH=/usr/local/arm_linux_4.8/bin:$PATH
+      - name: make kernel & uboot
+        run: |
+          make linux
+          make uboot
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: bsp
+          path: |
+            output/images/u-boot*
+            output/images/uImage
